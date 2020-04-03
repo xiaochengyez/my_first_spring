@@ -1,0 +1,37 @@
+package com.gongxc.service;
+
+import com.gongxc.dao.CategoryDAO;
+import com.gongxc.dao.CategoryDAOImpl;
+import com.gongxc.model.Category;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
+public class CategoryManagerImpl implements CategoryManager {
+    Logger logger = Logger.getLogger(CategoryManagerImpl.class);
+    CategoryDAO categoryDAO = new CategoryDAOImpl();
+    public List<Category> getAllCategories() {
+        return categoryDAO.getAllCategories();
+    }
+
+    public Category getCategoryById(int cid) {
+        List<Category> categories = categoryDAO.getCategoriesById(cid);
+        if(categories == null || categories.size() == 0 || categories.size() > 1){
+            return null;
+        }
+        return categories.get(0);
+    }
+
+    public int addCategory(String cname) {
+        return categoryDAO.addCategory(cname);
+    }
+
+    public int updateCategoryById(int cid, String cname) {
+        return categoryDAO.updateCategoryById(cid,cname);
+    }
+
+    public int deleteCategoryById(int cid) {
+        return categoryDAO.deleteCategoryById(cid);
+    }
+}
